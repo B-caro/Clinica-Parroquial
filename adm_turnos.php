@@ -52,25 +52,26 @@
       var hora_final = document.getElementById("hora_final");
       var error_msg = document.getElementById("error_frmTurno");
       var submitbtn = document.getElementById("subFrmTurno");
+      var deletebtn = document.getElementById("delFrmTurno");
 
       fecha.value = "";
       usuario.selectedIndex = 0;
       hora_incial.value = "";
       hora_final.value = "";
-      error_msg.innerHTML = "";
       submitbtn.value = "Agregar"
       deletebtn.type = "hidden"; 
     }
 
-    function seleccionarTurno(id){
+    function seleccionarTurno(id, idUser){
       limpiarFrmTurno();
       var id_turno = document.getElementById("t_id_turno"+id).innerHTML;
-      var usuario = document.getElementById("t_id_usuario"+id).innerHTML;
+      var usuario = idUser - 1;
       var fecha = document.getElementById("t_fecha"+id).innerHTML;
-      var hora_inicial = document.getElementById("t_hora_inicial"+id).value;
-      var hora_final = document.getElementById("t_hora_final"+id).value;
+      var hora_inicial = document.getElementById("t_hora_inicial"+id).innerHTML;
+      var hora_final = document.getElementById("t_hora_final"+id).innerHTML;
 
       //document.getElementById("id_usuario").value = id_turno;
+      
       document.getElementById("usuario").selectedIndex = usuario;
       document.getElementById("dp1").value = fecha;
       document.getElementById("hora_incial").value = hora_inicial;
@@ -304,7 +305,7 @@
                     <th><i class="icon_cogs"></i> Seleccionar</th>
                   </tr>
                   <?php
-                  $sql = "select T.id_turno, U.usuario, T.fecha, T.hora_inicial, T.hora_final
+                  $sql = "select T.id_turno, T.id_usuario, U.usuario, T.fecha, T.hora_inicial, T.hora_final
                           from turno T
                           inner join usuario U on T.id_usuario = U.id_usuario";
                   //Funcion que retorna el resultado del query
@@ -317,12 +318,12 @@
                         <tr>
                           <td id="t_id_turno<?= $row["id_turno"] ?>"><?= $row["id_turno"] ?></td>
                           <td id="t_id_usuario<?= $row["id_turno"] ?>"><?= $row["usuario"] ?></td>
-                          <td id="t_fecha<?= $row["id_turno"]?>"></td>
+                          <td id="t_fecha<?= $row["id_turno"]?>"><?= $row["fecha"]?></td>
                           <td id="t_hora_inicial<?= $row["id_turno"] ?>"><?= $row["hora_inicial"] ?></td>
                           <td id="t_hora_final<?= $row["id_turno"] ?>"><?= $row["hora_final"] ?></td>
                           <td>
                             <div class="btn-group">
-                            <a class="btn btn-primary" onclick="seleccionarTurno(<?= $row["id_turno"] ?>)" href="#"><i class="icon_plus_alt2"></i></a>
+                            <a class="btn btn-primary" onclick="seleccionarTurno(<?= $row['id_turno'] ?>, <?= $row['id_usuario'] ?>)" href="#"><i class="icon_plus_alt2"></i></a>
                             </div>
                           </td>
                         </tr>
