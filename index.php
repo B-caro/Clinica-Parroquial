@@ -65,7 +65,9 @@
         <div class="col-md-4 col-sm-4">
           <h2 class="ser-title">Nuestros Servicios</h2>
           <hr class="botm-line">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris cillum.</p>
+          <p>En la clinica Santa Catalina contara con una amplia cantidad de Servicios a sus disposicion a precios accesibles a sus bolsillos y dando un servicio de calidad.</p>
+          <p>Una clinica preparada tecnologicamente para ayudar con herramientas necesarias para facilitar el analisis de muestras y realizacion de examanes con el fin de obtener respuestas rapidas.</p>
+
         </div>
         <div class="col-md-4 col-sm-4">
           <div class="service-info">
@@ -74,7 +76,7 @@
             </div>
             <div class="icon-info">
               <h4>Soporte las 24 horas del día</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p>Contamos con una cantidad necesaria de empleados para estar a la disposicion de los enfermos y atenderlos en cualquier momento.</p>
             </div>
           </div>
           <div class="service-info">
@@ -83,7 +85,7 @@
             </div>
             <div class="icon-info">
               <h4>Servicios de Emergencia</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p>Su salud es lo primero, por lo cual contamos con una flota de ambulancias a su total disposicion al alcance de su mano con solo una llamada para atenderle rapidamente a usted o sus seres queridos.</p>
             </div>
           </div>
         </div>
@@ -121,7 +123,7 @@
         <div class="col-md-4 col-sm-4">
           <h2 class="ser-title">Nosotros</h2>
           <hr class="botm-line">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris cillum.</p>
+          <p>Clinica parroquial fundada con la funcion de ayudar a los habitantes apopenses o personas que nos visiten, brindando una calidad de salud al nivel de las mejores clinicas de El Salvador.</p>
         </div>
         <div class="col-md-4 col-sm-4">
           <div class="service-info">
@@ -216,7 +218,7 @@
             </div>
             <div class="info-sec">
               <ul class="quick-info">
-                <li><a href="index.html"><i class="fa fa-circle"></i>Inicio</a></li>
+                <li><a href="index.php"><i class="fa fa-circle"></i>Inicio</a></li>
                 <li><a href="#service"><i class="fa fa-circle"></i>Servicios</a></li>
               </ul>
             </div>
