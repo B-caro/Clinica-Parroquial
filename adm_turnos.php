@@ -26,7 +26,6 @@
   <link href="css_cpanel/bootstrap-theme.css" rel="stylesheet">
   <!--external css-->
   <link href="css/bootstrap-datepicker.css" rel="stylesheet" />
-  <link href="css/bootstrap-colorpicker.css" rel="stylesheet" />
   <!-- font icon -->
   <link href="css_cpanel/elegant-icons-style.css" rel="stylesheet" />
   <link href="css_cpanel/font-awesome.min.css" rel="stylesheet" />
@@ -64,14 +63,14 @@
 
     function seleccionarTurno(id, idUser){
       limpiarFrmTurno();
+
       var id_turno = document.getElementById("t_id_turno"+id).innerHTML;
       var usuario = idUser - 1;
       var fecha = document.getElementById("t_fecha"+id).innerHTML;
       var hora_inicial = document.getElementById("t_hora_inicial"+id).innerHTML;
       var hora_final = document.getElementById("t_hora_final"+id).innerHTML;
-
-      //document.getElementById("id_usuario").value = id_turno;
       
+      document.getElementById("id_turno_h").value = id_turno;
       document.getElementById("usuario").selectedIndex = usuario;
       document.getElementById("dp1").value = fecha;
       document.getElementById("hora_incial").value = hora_inicial;
@@ -231,6 +230,7 @@
                         </select>
                       </div>
                     </div>
+                    <input class="form-control " style="display: none" id="id_turno_h" type="text" name="id_turno_h" hidden readonly/>
                     <div class="form-group ">
                       <label for="cname" class="control-label col-lg-2">Fecha</span></label>
                       <div class="col-lg-10">
@@ -265,15 +265,13 @@
 
                 <?php
                 if(isset($_POST["subFrmTurno"]) && $_POST["subFrmTurno"] == "Agregar"){
+                  $id_turno = $_POST["id_turno_h"];
                   $id_usuario = $_POST["usuario"];
                   $fecha = $_POST["dp1"];
                   $fecha = strtotime($fecha);
                   $fecha = date('Y-m-d',$fecha);
                   $hora_incial = $_POST["hora_incial"];
                   $hora_final = $_POST["hora_final"];
-
-                  echo $fecha;
-
                   $sql = "insert into turno values (0, '".$id_usuario."', '".$fecha."', '".$hora_incial."', '".$hora_final."')";
                     if($database->executeNonQuery($sql)){
                       echo "<script>$('#panel').load('adm_turnos.php');</script>";
@@ -281,6 +279,32 @@
                     else{
                       echo "<script>document.getElementById('error_frmTurno').innerHTML = '* Error al ingresar el turno.'</script>"; 
                     }
+                }
+                else if(isset($_POST["subFrmTurno"]) && $_POST["subFrmTurno"] == "Editar"){
+                  $id_turno = $_POST["id_turno_h"];
+                  $fecha = $_POST["dp1"];
+                  $fecha = strtotime($fecha);
+                  $fecha = date('Y-m-d',$fecha);
+                  $hora_incial = $_POST["hora_incial"];
+                  $hora_final = $_POST["hora_final"];
+                  echo $id_turno;                 
+                  $sql = "update turno set fecha = '".$fecha."', hora_inicial = '".$hora_incial."', hora_final = '".$hora_incial."' where id_turno ='".$id_turno."'";
+                  if($database->executeNonQuery($sql)){
+                    echo "<script>$('#panel').load('adm_turnos.php');</script>";
+                  }
+                  else{
+                    echo "<script>document.getElementById('error_frmTurno').innerHTML = '* Error al editar el turno.'</script>"; 
+                  }  
+                }
+                else if(isset($_POST["delFrmTurno"]) && $_POST["delFrmTurno"] == "Eliminar"){
+                  $id_turno = $_POST["id_turno_h"];
+                  $sql = "delete from turno where id_turno ='".$id_turno."'";
+                  if($database->executeNonQuery($sql)){
+                    echo "<script>$('#panel').load('adm_turnos.php');</script>";
+                  }
+                  else{
+                    echo "<script>document.getElementById('error_frmTurno').innerHTML = '* Error al eliminar el turno.'</script>"; 
+                  }
                 }
 
                 ?>
