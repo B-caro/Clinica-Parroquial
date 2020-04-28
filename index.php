@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -96,7 +97,7 @@
             </div>
             <div class="icon-info">
               <h4>Profesionales Capacitados</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p>Nuestro principal objetivo es su salud, contamos con un equipo de medicos y enfermeras capacitadas para brindarle un excelente servicio y comodidad.</p>
             </div>
           </div>
           <div class="service-info">
@@ -105,7 +106,7 @@
             </div>
             <div class="icon-info">
               <h4>Medicamentos de Última Generación</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p>Sabemos que la medicina avanza constantemente y en nuestra clinica contamos simpre con los medicamentos mas avanzados para tratar su salud de una manera mas optima y efectiva.</p>
             </div>
           </div>
         </div>
@@ -131,7 +132,7 @@
               <h1>Misión</h1>
             </div>
             <div class="icon-info">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p>Con el deseo de brindar un servicio de alta calidad, nuestra mision se vaba en satisfacer de forma integral todas las necesidades y cuidos que el paciente necesita y contribuir con el desarrollo de la cominidad.</p>
             </div>
           </div>
         </div>
@@ -141,7 +142,7 @@
               <h1>Visión</h1>
             </div>
             <div class="icon-info">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p>Ser una clinica reconocida, por dar a sus visitantes un excelete servicio de salud como se merece a cada persona del municipio de apopa y a todo aquel que nos visita.</p>
             </div>
           </div>
         </div>
@@ -158,20 +159,21 @@
           <h2 class="ser-title">Contactanos</h2>
           <hr class="botm-line">
         </div>
-        <div class="col-md-4 col-sm-4">
+        <div class="col-md-6 col-sm-6">
           <h3>Dirección</h3>
           <div class="space"></div>
           <p><i class="fa fa-map-marker fa-fw pull-left fa-2x"></i>Avenida Quirino Chavez Sur<br> Apopa</p>
           <div class="space"></div>
-          <p><i class="fa fa-phone fa-fw pull-left fa-2x"></i>+503 2216 0086</p>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d309.548027229869!2d-89.17871570138854!3d13.799577516231798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f633be7ae77b599%3A0xb5d3f5a504b256e9!2sAvenida%20Quirino%20Chavez%20Sur%2C%20Apopa!5e0!3m2!1sen!2ssv!4v1584928495382!5m2!1sen!2ssv" width="500" height="250" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+          
         </div>
-        <div class="col-md-8 col-sm-8 marb20">
+        <div class="col-md-6 col-sm-6 marb20">
           <div class="contact-info">
             <h3 class="cnt-ttl">Envianos un mensaje y te respoderemos lo mas pronto posible.</h3>
             <div class="space"></div>
             <div id="sendmessage">Your message has been sent. Thank you!</div>
             <div id="errormessage"></div>
-            <form action="" method="post" role="form" class="contactForm">
+            <form  method="post" role="form" class="contactForm">
               <div class="form-group">
                 <input type="text" name="name" class="form-control br-radius-zero" id="name" placeholder="Ingresar Nombre" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
                 <div class="validation"></div>
@@ -190,8 +192,9 @@
               </div>
 
               <div class="form-action">
-                <button type="submit" class="btn btn-form">Enviar</button>
+                <button type="submit" name="submit"; class="btn btn-form">Enviar</button>
               </div>
+              <?php require('enviar.php'); ?>
             </form>
           </div>
         </div>
@@ -209,7 +212,7 @@
               <h4 class="white no-padding">Nosotros</h4>
             </div>
             <div class="info-sec">
-              <p>Praesent convallis tortor et enim laoreet, vel consectetur purus latoque penatibus et dis parturient.</p>
+              <p>Clinica parroquial fundada con la funcion de ayudar a los habitantes apopenses o personas que nos visiten, brindando una calidad de salud al nivel de las mejores clinicas de El Salvador.</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-4 marb20">
@@ -218,6 +221,7 @@
             </div>
             <div class="info-sec">
               <ul class="quick-info">
+              <p><i class="fa fa-phone fa-fw pull-left fa-2x"></i>+503 2216 0086</p>
                 <li><a href="index.php"><i class="fa fa-circle"></i>Inicio</a></li>
                 <li><a href="#service"><i class="fa fa-circle"></i>Servicios</a></li>
               </ul>
@@ -250,7 +254,7 @@
     </div>
   </footer>
   <!--/ footer-->
-
+ 
   <script src="js/jquery.min.js"></script>
   <script src="js/jquery.easing.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
