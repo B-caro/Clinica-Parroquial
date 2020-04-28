@@ -32,49 +32,68 @@
   <link href="css_cpanel/style.css" rel="stylesheet">
   <link href="css_cpanel/style-responsive.css" rel="stylesheet" />
   <script>
-    function validarFrmUsuario(){
-      var usuario = document.getElementById("nombre_usuario").value;
-      var contrasena = document.getElementById("contrasena_usuario").value;
-      var error_msg = document.getElementById("error_frmUsuario");
+    function validarFrmExpediente(){
+      var nombres = document.getElementById("nombres_expediente").value;
+      var apellidos = document.getElementById("apellidos_expediente").value;
+      var edad = document.getElementById("edad_expediente").value;
+      var comentario = document.getElementById("comentario_expediente").value;
+      var error_msg = document.getElementById("error_frmExpediente");
 
-      if(usuario === "" || contrasena === ""){
+      var return_value = true;
+
+      if(nombres === "" || apellidos === "" || edad === ""){
         error_msg.innerHTML = "* Por favor ingresar todos los parámetros.";
-        return false;
+        return_value = false;
       }
+      
+      if(edad < 0){
+      	error_msg.innerHTML+= "<br>* La edad tiene que ser mayor o igual a 0.";
+      	return_value = false;
+      }
+
+      return return_value;
     }
 
-    function limpiarFrmUsuario(){
-      var id = document.getElementById("id_usuario");
-      var usuario = document.getElementById("nombre_usuario");
-      var contrasena = document.getElementById("contrasena_usuario");
-      var tipo = document.getElementById("tipo_usuario");
-      var error_msg = document.getElementById("error_frmUsuario");
-      var submitbtn = document.getElementById("subFrmUsuario");     
-      var deletebtn = document.getElementById("delFrmUsuario");
+    function limpiarFrmExpediente(){
+      var id = document.getElementById("id_expediente");
+      var nombres = document.getElementById("nombres_expediente");
+      var apellidos = document.getElementById("apellidos_expediente");
+      var edad = document.getElementById("edad_expediente");
+      var comentario = document.getElementById("comentario_expediente");
+      var error_msg = document.getElementById("error_frmExpediente");
+      var submitbtn = document.getElementById("subFrmExpediente");     
+      var deletebtn = document.getElementById("delFrmExpediente");
+      var abrir_expedientebtn = document.getElementById("btnAbrirExpediente");
+      
 
       id.value = "";
-      usuario.value = "";
-      tipo.selectedIndex = 0;
-      contrasena.value = "";
+      nombres.value = "";
+      apellidos.value = "";
+      edad.value = "0";
+      comentario.value = "";
       error_msg.innerHTML = "";
       submitbtn.value = "Agregar"
       deletebtn.type = "hidden"; 
+      abrir_expedientebtn.type = "hidden";
     }
 
     function seleccionarUsuario(id){
-      limpiarFrmUsuario();
-      var id_usuario = document.getElementById("t_id_usuario"+id).innerHTML;
-      var usuario = document.getElementById("t_usuario"+id).innerHTML;
-      var contrasena = document.getElementById("t_contrasena"+id).innerHTML;
-      var tipo = document.getElementById("t_id_tipo"+id).value;
+      limpiarFrmExpediente();
+      var id_expediente = document.getElementById("t_id_expediente"+id).innerHTML;
+      var nombres = document.getElementById("t_nombres"+id).innerHTML;
+      var apellidos = document.getElementById("t_apellidos"+id).innerHTML;
+      var edad = document.getElementById("t_edad"+id).innerHTML;
+      var comentario = document.getElementById("t_comentario"+id).value;
 
-      document.getElementById("id_usuario").value = id_usuario;
-      document.getElementById("nombre_usuario").value = usuario;
-      document.getElementById("contrasena_usuario").value = contrasena;
-      document.getElementById("tipo_usuario").value = tipo;
+      document.getElementById("id_expediente").value = id_expediente;
+      document.getElementById("nombres_expediente").value = nombres;
+      document.getElementById("apellidos_expediente").value = apellidos;
+      document.getElementById("edad_expediente").value = edad;
+      document.getElementById("comentario_expediente").value = comentario;
 
-      document.getElementById("subFrmUsuario").value = "Editar";
-      document.getElementById("delFrmUsuario").type = "submit";
+      document.getElementById("subFrmExpediente").value = "Editar";
+      document.getElementById("delFrmExpediente").type = "submit";
+      document.getElementById("btnAbrirExpediente").type ="button"
     }
   </script>
 </head>
@@ -191,7 +210,7 @@
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa fa-bars"></i> Administración de Usuarios</h3>
+            <h3 class="page-header"><i class="fa fa fa-bars"></i> Administración de Expedientes</h3>
           </div>
         </div>
         <!-- page start-->
@@ -199,115 +218,90 @@
           <div class="col-lg-12">
             <section class="panel">
               <header class="panel-heading">
-                Usuario
+                Expediente
               </header>
               <div class="panel-body">
                 <div class="form">
-                  <form class="form-validate form-horizontal" id="frmUsuario" onsubmit="return validarFrmUsuario();" method="post" action="">
-                    <input type="hidden" id="id_usuario" name="id_usuario" value="0">
+                  <form class="form-validate form-horizontal" id="frmExpediente" onsubmit="return validarFrmExpediente();" method="post" action="">
+                    <input type="hidden" id="id_expediente" name="id_expediente" value="0">
                     <div class="form-group ">
-                      <label for="nombre_usuario" class="control-label col-lg-2">Usuario</span></label>
+                      <label for="nombre_usuario" class="control-label col-lg-2">Nombres</span></label>
                       <div class="col-lg-10">
-                        <input class="form-control" id="nombre_usuario" name="nombre_usuario" type="text"/>
+                        <input class="form-control" id="nombres_expediente" name="nombres_expediente" type="text"/>
                       </div>
                     </div>
                     <div class="form-group ">
-                      <label for="cname" class="control-label col-lg-2">Tipo</span></label>
+                      <label for="nombre_usuario" class="control-label col-lg-2">Apellidos</span></label>
                       <div class="col-lg-10">
-                        <select class="form-control m-bot15" id="tipo_usuario" name="tipo_usuario">
-                            <?php
-                            $sql = "select * from tipo";
-                            //Funcion que retorna el resultado del query
-                            $result = $database->executeQuery($sql);
-
-                            //If para revisar si existen registros
-                            if ($result->num_rows > 0) {
-                              while($row = $result->fetch_assoc()) {
-                                //Creo dinamicamente las opciones del input
-                                ?>
-                                  <option value="<?= $row["id_tipo"] ?>"><?= $row["nombre"] ?></option> 
-                                <?php
-                              }
-                            }
-                            ?>
-                        </select>
+                        <input class="form-control" id="apellidos_expediente" name="apellidos_expediente" type="text"/>
                       </div>
                     </div>
                     <div class="form-group ">
-                      <label for="contrasena_usuario" class="control-label col-lg-2">Contraseña</span></label>
+                      <label for="nombre_usuario" class="control-label col-lg-2">Edad</span></label>
                       <div class="col-lg-10">
-                        <input class="form-control " id="contrasena_usuario" type="password" name="contrasena_usuario"/>
+                        <input class="form-control" id="edad_expediente" name="edad_expediente" type="number" value="0"/>
+                      </div>
+                    </div>
+                    <div class="form-group ">
+                      <label for="contrasena_usuario" class="control-label col-lg-2">Comentario</span></label>
+                      <div class="col-lg-10">
+                      	<textarea class="form-control" id="comentario_expediente" name="comentario_expediente" rows="4" maxlength="1000"></textarea>
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="col-lg-offset-2 col-lg-10">
-                        <input class="btn btn-primary" type="submit" name="subFrmUsuario" id="subFrmUsuario" value="Agregar">
-                        <input class="btn btn-primary" type="hidden" name="delFrmUsuario" id="delFrmUsuario" value="Eliminar">
-                        <input class="btn btn-default" type="button" onclick="limpiarFrmUsuario()" value="Cancelar">
+                      	<input class="btn btn-success" type="hidden" name="btnAbrirExpediente" id="btnAbrirExpediente" onclick="window.location.href = 'adm_visita.php?expediente='+document.getElementById('id_expediente').value;" value="Abrir Expediente">
+                        <input class="btn btn-primary" type="submit" name="subFrmExpediente" id="subFrmExpediente" value="Agregar">
+                        <input class="btn btn-danger" type="hidden" name="delFrmExpediente" id="delFrmExpediente" value="Eliminar">
+                        <input class="btn btn-default" type="button" onclick="limpiarFrmExpediente()" value="Cancelar">
                       </div>
                     </div>
                     <div class="col-lg-offset-2 col-lg-10">
-                      <p style="color: red" id="error_frmUsuario"></p>
+                      <p style="color: red" id="error_frmExpediente"></p>
                     </div>
                   </form>
                 </div>
                 <?php
-                if(isset($_POST["subFrmUsuario"]) && $_POST["subFrmUsuario"] == "Agregar"){
-                  $usuario = $_POST["nombre_usuario"];
-                  $contrasena = $_POST["contrasena_usuario"];
-                  $id_tipo = $_POST["tipo_usuario"];
+                if(isset($_POST["subFrmExpediente"]) && $_POST["subFrmExpediente"] == "Agregar"){
+                  $nombres = $_POST["nombres_expediente"];
+                  $apellidos = $_POST["apellidos_expediente"];
+                  $edad = $_POST["edad_expediente"];
+                  $comentario = $_POST["comentario_expediente"];
 
-                  $sql = "select * from usuario where usuario = '".$usuario."'";
-                  //Funcion que retorna el resultado del query
-                  $result = $database->executeQuery($sql);
-
-                  //If para revisar si existen registros
-                  if ($result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) {
-                      echo "<script>document.getElementById('error_frmUsuario').innerHTML = '* Un usuario con este nombre ya existe.'</script>";
-                    }
-                  }else{
-                    $sql = "insert into usuario values (0, '".$usuario."', '".$contrasena."', CURRENT_DATE(),".$id_tipo.")";
-                    if($database->executeNonQuery($sql)){
-                      echo "<script>$('#panel').load('adm_usuario.php');</script>";
-                    }
-                    else{
-                      echo "<script>document.getElementById('error_frmUsuario').innerHTML = '* Error al ingresar el usuario.'</script>"; 
-                    }
-                  }
-                }
-                else if(isset($_POST["subFrmUsuario"]) && $_POST["subFrmUsuario"] == "Editar"){
-                  $id_usuario = $_POST["id_usuario"];
-                  $usuario = $_POST["nombre_usuario"];
-                  $contrasena = $_POST["contrasena_usuario"];
-                  $id_tipo = $_POST["tipo_usuario"];
-
-                  $sql = "select * from usuario where usuario = '".$usuario."'";
-                  //Funcion que retorna el resultado del query
-                  $result = $database->executeQuery($sql);
-
-                  if ($result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) {
-                      echo "<script>document.getElementById('error_frmUsuario').innerHTML = '* Un usuario con este nombre ya existe.'</script>";
-                    }
-                  }else{
-                    $sql = "update usuario set usuario = '".$usuario."', contrasena = '".$contrasena."', id_tipo = '".$id_tipo."' where id_usuario ='".$id_usuario."'";
-                    if($database->executeNonQuery($sql)){
-                      echo "<script>$('#panel').load('adm_usuario.php');</script>";
-                    }
-                    else{
-                      echo "<script>document.getElementById('error_frmUsuario').innerHTML = '* Error al editar el usuario.'</script>"; 
-                    }
-                  }
-                }
-                else if(isset($_POST["delFrmUsuario"]) && $_POST["delFrmUsuario"] == "Eliminar"){
-                  $id_usuario = $_POST["id_usuario"];
-                  $sql = "delete from usuario where id_usuario ='".$id_usuario."'";
-                  if($database->executeNonQuery($sql)){
-                    echo "<script>$('#panel').load('adm_usuario.php');</script>";
+	              $sql = "insert into expediente values (0,'".$nombres."','".$apellidos."','".$edad."',CURRENT_DATE(),'".$comentario."')";
+    	          if($database->executeNonQuery($sql)){
+                  	echo "<script>$('#panel').load('adm_expediente.php');</script>";
                   }
                   else{
-                    echo "<script>document.getElementById('error_frmUsuario').innerHTML = '* Error al eliminar el usuario.'</script>"; 
+                  	echo "<script>document.getElementById('error_frmExpediente').innerHTML = '* Error al ingresar el expediente.'</script>"; 
+                  }
+                  
+                }
+                else if(isset($_POST["subFrmExpediente"]) && $_POST["subFrmExpediente"] == "Editar"){
+                  $id_expediente = $_POST["id_expediente"];
+                  $nombres = $_POST["nombres_expediente"];
+                  $apellidos = $_POST["apellidos_expediente"];
+                  $edad = $_POST["edad_expediente"];
+                  $comentario = $_POST["comentario_expediente"];
+
+                  $sql = "update expediente set nombres = '".$nombres."', apellidos = '".$apellidos."', edad = '".$edad."', comentario = '".$comentario."' where id_expediente = '".$id_expediente."'";
+
+                  //$sql = "update usuario set usuario = '".$usuario."', contrasena = '".$contrasena."', id_tipo = '".$id_tipo."' where id_usuario ='".$id_usuario."'";
+                  if($database->executeNonQuery($sql)){
+                    echo "<script>$('#panel').load('adm_expediente.php');</script>";
+                  }
+                  else{
+                    echo "<script>document.getElementById('error_frmExpediente').innerHTML = '* Error al editar el expediente.'</script>"; 
+                  }
+                }
+                else if(isset($_POST["delFrmExpediente"]) && $_POST["delFrmExpediente"] == "Eliminar"){
+                  $id_expediente = $_POST["id_expediente"];
+                  $sql = "delete from expediente where id_expediente = '".$id_expediente."'";
+                  if($database->executeNonQuery($sql)){
+                    echo "<script>$('#panel').load('adm_expediente.php');</script>";
+                  }
+                  else{
+                    echo "<script>document.getElementById('error_frmUsuario').innerHTML = '* Error al eliminar el expediente.'</script>"; 
                   }
                 }
                 ?>
@@ -317,22 +311,20 @@
           <div class="col-lg-12">
             <section class="panel" id="panel">
               <header class="panel-heading">
-                Usuarios
+                Expedientes
               </header>
               <table class="table table-striped table-advance table-hover">
                 <tbody>
                   <tr>
                     <th></i># Id</th>
-                    <th><i class="icon_profile"></i> Usuario</th>
-                    <td> Contraseña</td>
-                    <td> Tipo</td>
+                    <th><i class="icon_profile"></i> Nombres</th>
+                    <td> Apellidos</td>
+                    <td> Edad</td>
                     <th><i class="icon_calendar"></i> Fecha de Creacion</th>
                     <th><i class="icon_cogs"></i> Seleccionar</th>
                   </tr>
                   <?php
-                  $sql = "select * from usuario as u 
-                          inner join tipo as t
-                          on u.id_tipo = t.id_tipo";
+                  $sql = "select * from expediente";
                   //Funcion que retorna el resultado del query
                   $result = $database->executeQuery($sql);
                   //If para revisar si existen registros
@@ -341,15 +333,15 @@
                       //Creo dinamicamente las opciones del input
                       ?>
                         <tr>
-                          <td id="t_id_usuario<?= $row["id_usuario"] ?>"><?= $row["id_usuario"] ?></td>
-                          <td id="t_usuario<?= $row["id_usuario"] ?>"><?= $row["usuario"] ?></td>
-                          <td id="t_contrasena<?= $row["id_usuario"] ?>"><?= $row["contrasena"] ?></td>
-                          <input type="hidden" id="t_id_tipo<?= $row["id_usuario"] ?>" value="<?= $row['id_tipo'] ?>">
-                          <td><?= $row["nombre"] ?></td>
+                          <td id="t_id_expediente<?= $row["id_expediente"] ?>"><?= $row["id_expediente"] ?></td>
+                          <td id="t_nombres<?= $row["id_expediente"] ?>"><?= $row["nombres"] ?></td>
+                          <td id="t_apellidos<?= $row["id_expediente"] ?>"><?= $row["apellidos"] ?></td>
+                          <td id="t_edad<?= $row["id_expediente"] ?>"><?= $row["edad"] ?></td>
                           <td><?= $row["fecha_creacion"] ?></td>
+                          <input type="hidden" id="t_comentario<?= $row["id_expediente"] ?>" value="<?= $row["comentario"] ?>">
                           <td>
                             <div class="btn-group">
-                              <a class="btn btn-primary" onclick="seleccionarUsuario(<?= $row["id_usuario"] ?>)" href="#"><i class="icon_plus_alt2"></i></a>
+                              <a class="btn btn-primary" onclick="seleccionarUsuario(<?= $row["id_expediente"] ?>)" href="#"><i class="icon_plus_alt2"></i></a>
                             </div>
                           </td>
                         </tr>

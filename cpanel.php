@@ -4,7 +4,7 @@
   session_start();
   $database = new database();
   //If para revisar si sesion de usuario existe
-  if(!isset($_SESSION['usuario'])){
+  if(!isset($_SESSION['usuario']) || $_SESSION["usuario"] == null){
     //Redirecciona a pagina de panel de control
     header("Location: ingresar.php");
     exit();
